@@ -49,5 +49,43 @@
 
 var totalSales = function (salesTeam) {
   // All your code in this function body
+  var total = 0;
+  if (salesTeam.manages.length > 0) {
+    for (var i = 0; i < salesTeam.manages.length; i++) {
+      total += totalSales(salesTeam.manages[i]);
+    }
+    total += salesTeam.individualSales;
+  } else {
+    total += salesTeam.individualSales;
+  }
+  return total;
 };
 
+var salesTeam = {
+   name: 'Arnaldo McDermott',
+   individualSales: 14,
+   leadsInProgress: 10,
+   manages: [
+     {
+       name: 'Lavina Romaguera',
+       individualSales: 15,
+       leadsInProgress: 22,
+       manages: [
+         {
+           name: 'Glen Hodkiewicz',
+           individualSales: 12,
+           leadsInProgress: 10,
+           manages: []
+         }
+       ]
+     },
+     {
+       name: 'Rey Hills',
+       individualSales: 19,
+       leadsInProgress: 5,
+       manages: []
+     }
+   ]
+ };
+
+totalSales(salesTeam); // returns 60
