@@ -27,7 +27,7 @@ var nTimes = function(n, func) {
   var times = 0;
   return function() {
     times++;
-    if (times <= arguments.length) {
+    if (times <= n) {
       lastResult = func.apply(this, arguments);
       return lastResult;
     } else {
@@ -46,4 +46,23 @@ console.log(add3Times(4, 9, 0)); // returns 13
 console.log(add3Times(6, 5, 0)); // returns 11
 console.log(add3Times(2, 3, 0)); // returns 11
 console.log(add3Times(9, 8, 0)); // returns 11
+
+
+var num = 0;
+var increment = nTimes(2, function () {
+  num++;
+});
+increment();
+console.log(num); //1
+increment();
+console.log(num); //2
+increment();
+console.log(num); //2
+
+var add = nTimes(2, function (x, y, z) {
+  return x + y + z;
+});
+console.log(add(1, 2, 3)); //6
+console.log(add(4, 5, 6)); //15
+console.log(add(7, 8, 9)); //15
 
